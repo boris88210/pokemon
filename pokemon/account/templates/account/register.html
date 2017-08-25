@@ -1,0 +1,70 @@
+{% extends "main/base.html" %}
+
+{% block title %}Register{% endblock %}
+
+
+{% block content %}
+
+<div id="content">
+<h1>Register</h1>
+  <h2 align="center">歡迎來到Pokemon交易所，請新朋友填寫申請表格</h2>
+  <div align="center">
+    <fieldset style="width: 80%;">
+      <form action="{% url 'account:register' %}" method="post">
+        {% csrf_token %}
+        
+        <div align="left">
+          {{ userForm.as_p }}
+          {{ userProfileForm.as_p }}
+        </div>
+<!--          <div style="display: inline;">
+          <div align="left">你的帳號:</div>
+          <div align="left">
+            <input type="text" name="account" />
+          </div>
+        </div>
+
+        <div>
+          <div align="left">你的密碼:</div>
+          <div align="left">
+            <input type="password" name="password" />
+          </div>
+        </div>
+
+        <div>
+          <div align="left">再輸入一次密碼:</div>
+          <div align="left">
+            <input type="password" name="passwordConfirm" />
+          </div>
+        </div>
+
+        <div>
+          <div align="left">你的暱稱:</div>
+          <div align="left">
+            <input type="text" name="nickname" />
+          </div>
+        </div>
+
+        <div align="left">你的FC:</div>
+        <div align="left">
+          <input type="text" name="fc" />
+        </div>
+
+        <div>
+          <div align="left">自我描述:</div>
+          <div align="left">
+            <textarea name="description" row="8"></textarea>
+          </div>
+        </div>
+        
+-->
+        <div>
+          <input type="submit"  value="申請成為訓練師" />
+        </div>
+      </form>
+    </fieldset>
+  </div>
+
+
+</div>
+{% endblock %}
