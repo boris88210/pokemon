@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate 
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout 
-
+from django.contrib.auth.decorators import login_required
 from account.forms import UserForm, UserProfileForm
 
 # Create your views here.
@@ -29,9 +29,10 @@ def register(request):
         
 def login(request):
     template = 'account/login.html'
+#  GET
     if request.method == 'GET':
-        return render(request, template)
-    
+        return render(request, template, {'nextURL':request.GET.get('next')})
+#  POST
     username = request.POST.get('username')
     password = request.POST.get('password')
     if not username or not password:
@@ -46,9 +47,13 @@ def login(request):
         return render(request, template)
     
     auth_login(request, user)
+    nextURL = request.POST.get('nextURL')
+    if nextURL:
+      return redirect(nextURL)
     messages.success(request, '登入成功')
     return redirect('main:main')
 
+@login_required
 def logout(request):
     auth_logout(request)
     messages.success(request, '歡迎再度回來唷!')
